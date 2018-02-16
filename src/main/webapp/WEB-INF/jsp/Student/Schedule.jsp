@@ -64,7 +64,7 @@
                                   </button>
                                 <strong> ${scheduleErrorNoDivisionAssigned} </strong> 
                               </div>
-			</c:if>
+			</c:if> 
 			
 			
 			<c:if test="${!empty schedule}">
