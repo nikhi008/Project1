@@ -69,6 +69,7 @@
 			</c:if> 
 			
 			
+			
 			<c:if test="${!empty schedule}">
 			 <div id="show_calender" class="googleCalendar" style="text-align: center;" >
 			 ${schedule}
