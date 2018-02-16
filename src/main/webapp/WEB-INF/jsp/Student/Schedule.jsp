@@ -62,6 +62,7 @@
                                   
                                       <i class="icon-remove"></i>
                                   </button>
+                                  
                                 <strong> ${scheduleErrorNoDivisionAssigned} </strong> 
                               </div>
 			</c:if> 
