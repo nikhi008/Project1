@@ -14,6 +14,8 @@ import com.app.pojo.Student;
 import com.app.pojo.Teacher;
 import com.app.pojo.Schedule;
 import com.app.service.ScheduleService;
+import com.app.service.StudentService;
+import com.google.gson.Gson;
 
 @Controller
 @RequestMapping("/Student")
@@ -24,6 +26,11 @@ public class StudentController {
 
 	@Autowired
 	ScheduleService scheduleService;
+	
+	@Autowired
+	StudentService studentService;
+	
+	Gson gson = new Gson();
 	 
 	 @RequestMapping(value="/Home",method = RequestMethod.GET)  
 	    public String  ViewInstitueStructure(Model model,@ModelAttribute("student") Student student) {  
@@ -76,7 +83,39 @@ public class StudentController {
 			 		 
 	        return "Student/Schedule";
 	    }
+	 
+	 @RequestMapping("/studentShowProfile")
+	 	public String teacherShowProfile(Model model) 
+	 {
+		 System.out.println("**********this is studentShowProfile controller**********");	    	
+		 return "Student/showProfile";
+	 }
 
-
+	 @RequestMapping(value="/studentEditProfile")
+	 	public String studentEditProfile(Model model) 
+	 {
+		 System.out.println("**********this is studentEditProfile controller**********");	 
+		 model.addAttribute("EditStudent", new Student());
+		 return "Student/editProfile";
+     }
+	 
+	 @RequestMapping(value="/editStudent",method = RequestMethod.POST)
+	 	public String editTeacher(Model model,@ModelAttribute("student") Student student1,@ModelAttribute("EditStudent") Student student2) 
+	 {
+		 System.out.println("**********this is editTeacher controller**********");
+		 student1.setFname(student2.getFname());
+		 student1.setLname(student2.getLname());
+		 student1.setEmail(student2.getEmail());
+		 student1.setContactno(student2.getContactno());
+		 
+		 studentService.update(student1);
+		 model.addAttribute("student",student1);
+		 model.addAttribute("studentJSON",gson.toJson(student1));
+		 
+		 model.addAttribute("profileEditSuccess","Your profile updated successfully");
+		
+		 return "Student/showProfile";
+  }
+	 
 	
 }

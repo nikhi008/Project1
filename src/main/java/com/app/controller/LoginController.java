@@ -91,7 +91,12 @@ public class LoginController {
 				switch (roleId) {
 				case 1:
 					output = "hello";// student
-					System.out.println("student logged in");
+					Student s1=StudentService.findByLoginId(userLogin.getId());
+					s1.setLogin(userLogin);
+					
+					model.addAttribute("student", s1);
+					model.addAttribute("studentJSON",gson.toJson(s1));
+					System.out.println("student logged in;");
 					break;
 
 				case 2:
@@ -114,7 +119,7 @@ public class LoginController {
 				case 3://institute admin
 					System.out.println("inside case 3--------------------------------------");
 					output = "Teacher/home"; // ** institute admin					
-					Teacher t1=teacherService.findByLoginId(userLogin.getId());																					
+					Teacher t1=teacherService.findByLoginId(userLogin.getId());		
 					Permissions p=permissionsService.find(t1.getPermissions().getId());					
 									
 					
